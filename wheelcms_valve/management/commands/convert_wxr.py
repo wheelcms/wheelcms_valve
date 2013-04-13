@@ -11,9 +11,17 @@ class Command(BaseCommand):
         Import a "Wordpress eXtended RSS" file. More specifically, the one
         that zinnia currently exports. This may skip a number of relevant/
         important fields simply because zinnia doesn't support them.
+
+        Categories are currently assumed to be flat.
+        url structure is not preserved (but slugs are)
+
+        TODO:
+        - configurable target content type (currently Page)
+        - configurable default owner
+        - configurable owner mapping
     """
-    args = 'readfrom [path]'
-    help = 'Import an xml dump'
+    args = 'path-to-export.xml'
+    help = 'Convert a Wordpress WXR dump to WheelCMS'
 
     def handle(self, source, *args, **kw):
         data = open(source).read()
