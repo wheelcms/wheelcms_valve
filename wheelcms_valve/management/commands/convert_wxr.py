@@ -1,4 +1,5 @@
 import pprint
+from optparse import make_option
 from xml.dom import minidom
 
 from xml.etree import ElementTree
@@ -23,7 +24,18 @@ class Command(BaseCommand):
     args = 'path-to-export.xml'
     help = 'Convert a Wordpress WXR dump to WheelCMS'
 
-    def handle(self, source, *args, **kw):
+    base_options = (
+        make_option("--blogtype", action="store", dest="blogtype",
+                    default="wheelcms_valve.valveblog",
+                    help='Type for blog "folder"'),
+        make_option("--entrytype", action="store", dest="entrytype",
+                    default="wheelcms_valve.valveentry",
+                    help='Type for blog entry'),
+
+    )
+    option_list = BaseCommand.option_list + base_options
+
+    def handle(self, source, blogtype, entrytype, **kw):
         data = open(source).read()
         namespaces = {"wp": "http://wordpress.org/export/1.1/",
                       "content": "http://purl.org/rss/1.0/modules/content/",
@@ -110,18 +122,11 @@ class Command(BaseCommand):
                 navigation="False",
                 template=""
             )
-        #print "==categories=="
-        #pprint.pprint(categories)
-        #print "==tags=="
-        #pprint.pprint(tags)
-
-        ## perform the export
 
         root = ElementTree.Element("site")
         root.set('version', '1')
         root.set('base', '/')
 
-        ITEM_TYPE = "wheelcms_spokes.page"
         DEFAULT_OWNER = "ivo"
 
         def create_field(node, name, value):
@@ -130,10 +135,19 @@ class Command(BaseCommand):
             f.text = value
             return f
 
+        xmlblog = ElementTree.SubElement(root, "content",
+                  dict(slug="",
+                       type=blogtype))
+
+        fields = ElementTree.SubElement(xmlblog, "fields")
+        children = ElementTree.SubElement(xmlblog, "children")
+        title = tree.find("channel/title").text
+        create_field(fields, "title", title)
+
         for item in items.values():
-            xmlcontent = ElementTree.SubElement(root, "content",
+            xmlcontent = ElementTree.SubElement(children, "content",
                          dict(slug=item['slug'],
-                              type=ITEM_TYPE))
+                              type=entrytype))
             xmlfields = ElementTree.SubElement(xmlcontent, "fields")
 
             for field in ("title", "description", "owner",

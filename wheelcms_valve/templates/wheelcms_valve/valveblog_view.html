@@ -1,0 +1,21 @@
+{% extends "wheelcms_axle/base.html" %}
+
+{% block base_stylesheets %}
+{{block.super}}
+<link rel="stylesheet" href="/static/css/wheelcms_valve.css" media="screen, projection, print"/>
+{% endblock %}
+
+{% block base_main %}
+<div class="row">
+  <div class="span12">
+    <h1>{{content.title}}</h1>
+  </div>
+</div>
+
+{% for child in page.object_list %}
+  {% include "wheelcms_valve/valveentry_detail.html" with content=child.content h=3 truncate=40 %}
+{% endfor %}
+
+{% include "wheelcms_valve/pagination.html" %}
+
+{% endblock %}

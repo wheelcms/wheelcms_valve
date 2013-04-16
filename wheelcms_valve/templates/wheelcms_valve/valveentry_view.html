@@ -1,0 +1,12 @@
+{% extends "wheelcms_axle/base.html" %}
+
+{% block base_stylesheets %}
+{{block.super}}
+<link rel="stylesheet" href="/static/css/wheelcms_valve.css" media="screen, projection, print"/>
+{% endblock %}
+
+{% block base_main %}
+
+  {% include "wheelcms_valve/valveentry_detail.html" %}
+
+{% endblock %}
