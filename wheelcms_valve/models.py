@@ -77,7 +77,7 @@ class ValveBlogType(PageType):
 
 
         p = max(1, int(request.GET.get('page', 1)))
-        ctx['paginator'] = paginator = SectionedPaginator(self.instance.node.childrenq().order_by("-contentbase__created"), 4)
+        ctx['paginator'] = paginator = SectionedPaginator(self.instance.node.childrenq(contentbase__meta_type=ValveEntry.classname).order_by("-contentbase__created"), 4)
         b, m, e = paginator.sections(p, windowsize=6)
         ctx['begin'] = b
         ctx['middle'] = m
