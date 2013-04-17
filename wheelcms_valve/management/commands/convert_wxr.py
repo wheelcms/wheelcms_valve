@@ -113,10 +113,10 @@ class Command(BaseCommand):
                 description=description,
                 body=content,
                 tags=itemtags,
+                created=itemmeta.get('_last_update', ''),
                 modified=itemmeta.get('_last_update', ''),
-                publication=itemmeta.get('_start_publication', ''),
+                publication=itemmeta.get('_start_publication',itemmeta.get('_last_update', '')),
                 expire=itemmeta.get('_end_publication', ''),
-                
                 state="published",
                 meta_type="page", ## XXX
                 navigation="False",
@@ -152,6 +152,7 @@ class Command(BaseCommand):
 
             for field in ("title", "description", "owner",
                           "body", "state", "meta_type", "navigation",
+                          "created", "modified",
                           "publication", "expire", "template"):
                 create_field(xmlfields, field, item.get(field, ''))
 
