@@ -99,6 +99,7 @@ class Command(BaseCommand):
 
             description = item.find("description", namespaces=namespaces).text
             content = item.find("content:encoded", namespaces=namespaces).text
+            post_date = item.find("wp:post_date", namespaces=namespaces).text
 
             itemmeta = {}
             for meta in item.findall("wp:postmeta", namespaces=namespaces):
@@ -113,9 +114,9 @@ class Command(BaseCommand):
                 description=description,
                 body=content,
                 tags=itemtags,
-                created=itemmeta.get('_last_update', ''),
+                created=post_date,
                 modified=itemmeta.get('_last_update', ''),
-                publication=itemmeta.get('_start_publication',itemmeta.get('_last_update', '')),
+                publication=post_date, # itemmeta.get('_start_publication', ''),
                 expire=itemmeta.get('_end_publication', ''),
                 state="published",
                 meta_type="page", ## XXX
@@ -144,7 +145,9 @@ class Command(BaseCommand):
         title = tree.find("channel/title").text
         create_field(fields, "title", title)
 
-        for item in items.values():
+        import operator
+
+        for item in sorted(items.values(), key=operator.itemgetter("created")):
             xmlcontent = ElementTree.SubElement(children, "content",
                          dict(slug=item['slug'],
                               type=entrytype))
