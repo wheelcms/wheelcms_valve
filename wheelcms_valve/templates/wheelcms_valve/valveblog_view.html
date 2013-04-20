@@ -6,11 +6,6 @@
 {% endblock %}
 
 {% block base_main %}
-<div class="row">
-  <div class="span12">
-    <h1>{{content.title}}</h1>
-  </div>
-</div>
 
 {% for child in page.object_list %}
   {% with content=child.content %}
@@ -23,7 +18,7 @@
           {% if categories %}
             in
             {% for cat in categories %}
-              {{cat}} {% if not forloop.last %},{% endif %}
+              {{cat}}{% if not forloop.last %},{% endif %}
             {% endfor %}
           {% endif %}
         {% endwith %}

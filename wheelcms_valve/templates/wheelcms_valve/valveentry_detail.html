@@ -1,17 +1,40 @@
 {# link categories and tags to a filter on the main index view #}
 <div class="row">
   <div class="span12">
-    <h{{h|default:1}}><a href="{{content.node.path}}">{{content.title}}</a></h{{h|default:1}}>
-    <span class="byline">{% if content.state == "private" %}<span class="badge badge-important">private</span>{%endif%} <i class="icon-user"></i>
-     Written by {{content.owner}} &mdash; published {{content.publication}} &mdash; last modified {{content.modified}} 
+    <h3><a href="{{content.node.path}}">{{content.title}}</a></h3>
+    <span class="entry-info">{% if content.state == "private" %}<span class="badge badge-important">private</span>{%endif%}          Written by <i class="icon-user"></i>
+{{content.owner}} on {{content.publication}} 
+        {% with categories=content.categories.all %}
+          {% if categories %}
+            in
+            {% for cat in categories %}
+              {{cat}}{% if not forloop.last %},{% endif %}
+            {% endfor %}
+          {% endif %}
+        {% endwith %}
+    </span>
+  </div>
+</div>
+<div class="row">
+  <div class="span12">
+    <div class="entry-content">
+      {{content.body|safe}}
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="span12">
+    <span class="entry-details-footer">{% if content.state == "private" %}<span class="badge badge-important">private</span>{%endif%} 
+    Last updated {{content.modified}} |
     {% with categories=content.categories.all %}
       {% if categories %}
-        &mdash; filed under
+        filed under
         {% for cat in categories %}
           {{cat}} {% if not forloop.last %},{% endif %}
         {% endfor %}
       {% endif %}
     {% endwith %}
+    |
     {% with tags=content.tags.all %}
       {% if tags %}
         <i class="icon-tag"></i>
@@ -21,15 +44,5 @@
       {% endif %}
     {% endwith %}
     </span>
-  </div>
-</div>
-<div class="row">
-  <div class="span12">
-    {% if truncate %}
-      {{content.body|safe|truncatewords_html:truncate}}
-      <a href="{{content.node.path}}">Continue reading</a>
-    {% else %}
-      {{content.body|safe}}
-    {% endif %}
-  </div>
-</div>
+  </span>
+</span>
