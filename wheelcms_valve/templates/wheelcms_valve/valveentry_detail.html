@@ -25,19 +25,18 @@
 <div class="row">
   <div class="span12">
     <span class="entry-details-footer">{% if content.state == "private" %}<span class="badge badge-important">private</span>{%endif%} 
-    Last updated {{content.modified}} |
+    Last updated {{content.modified}} 
     {% with categories=content.categories.all %}
       {% if categories %}
-        filed under
+        | filed under
         {% for cat in categories %}
-          {{cat}} {% if not forloop.last %},{% endif %}
+          <a href="{{cat.node.path}}">{{cat}}</a>{% if not forloop.last %},{% endif %}
         {% endfor %}
       {% endif %}
     {% endwith %}
-    |
     {% with tags=content.tags.all %}
       {% if tags %}
-        <i class="icon-tag"></i>
+        | <i class="icon-tag"></i>
         {% for tag in tags %}
           <span class="label label-default">{{tag}}</span>
         {% endfor %}
