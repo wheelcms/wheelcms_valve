@@ -3,7 +3,7 @@
   <div class="span12">
     <h3><a href="{{content.node.path}}">{{content.title}}</a></h3>
     <span class="entry-info">{% if content.state == "private" %}<span class="badge badge-important">private</span>{%endif%}          Written by <i class="icon-user"></i>
-{{content.owner}} on {{content.publication}} 
+{{content.owner.get_full_name|default:content.owner}} on {{content.publication}} 
         {% with categories=content.categories.all %}
           {% if categories %}
             in

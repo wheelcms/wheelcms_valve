@@ -59,6 +59,7 @@ class ValveBlogType(PageType):
     model = ValveBlog
     title = "A Valve blog"
     children = (FileType, ImageType, ValveEntryType, CategoryType)
+    primary = ValveEntryType
 
     class form(PageForm):
         """ derive from Page's form but with correct model """
