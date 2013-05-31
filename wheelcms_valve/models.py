@@ -20,6 +20,8 @@ class ValveEntryType(PageType):
     title = "A Valve entry"
     implicit_add = False
 
+    discussable = True  ## entries can be discussed, of course
+
     class form(PageForm):
         """ derive from Page's form but with correct model """
         class Meta(PageForm.Meta):

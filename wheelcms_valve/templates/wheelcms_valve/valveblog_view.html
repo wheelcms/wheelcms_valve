@@ -1,11 +1,11 @@
-{% extends "wheelcms_axle/base.html" %}
+{% extends "wheelcms_axle/content_base.html" %}
 
 {% block base_stylesheets %}
 {{block.super}}
 <link rel="stylesheet" href="/static/css/wheelcms_valve.css" media="screen, projection, print"/>
 {% endblock %}
 
-{% block base_main %}
+{% block content_main %}
 
 {% for child in page.object_list %}
   {% with content=child.content %}
