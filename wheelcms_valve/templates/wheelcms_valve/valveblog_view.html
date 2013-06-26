@@ -1,4 +1,6 @@
 {% extends "wheelcms_axle/content_base.html" %}
+{% load fragments %}
+
 
 {% block base_stylesheets %}
 {{block.super}}
@@ -40,4 +42,12 @@
 
 {% include "two.bootstrap/pagination.html" %}
 
+{% endblock %}
+
+{% block fragments %}
+  {{block.super}}
+
+  {% fragment "head" %}
+    {% include "wheelcms_rss/feedlinks.html" with feedcontext=instance.content %}
+  {% endfragment %}
 {% endblock %}

@@ -1,4 +1,5 @@
 {% extends "wheelcms_axle/content_base.html" %}
+{% load fragments %}
 
 {% block base_stylesheets %}
 {{block.super}}
@@ -9,4 +10,12 @@
 
   {% include "wheelcms_valve/valveentry_detail.html" %}
 
+{% endblock %}
+
+{% block fragments %}
+  {{block.super}}
+
+  {% fragment "head" %}
+    {% include "wheelcms_rss/feedlinks.html" with feedcontext=instance.parent.content %}
+  {% endfragment %}
 {% endblock %}

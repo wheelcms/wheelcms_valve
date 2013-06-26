@@ -76,6 +76,11 @@ class ValveBlogType(PageType):
 
         return ctx
 
+    def feed(self):
+        return ValveEntry.objects.filter(
+                 node__path__startswith=self.path(),
+                 state="published").order_by("-created")
+
 type_registry.register(ValveBlogType)
 template_registry.register(ValveBlogType, "wheelcms_valve/valveblog_view.html",
                            "Blog view", default=True)
