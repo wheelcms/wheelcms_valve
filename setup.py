@@ -24,7 +24,8 @@ setup(name='wheelcms_valve',
           'setuptools',
           'pytest',
           'wheelcms_axle',
-          'wheelcms_categories'
+          'wheelcms_categories',
+          'wheelcms_rss'
       ],
       entry_points={
       },
