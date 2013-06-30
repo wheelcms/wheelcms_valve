@@ -17,6 +17,7 @@ if __name__ == '__main__':
             'wheelcms_spokes',
             'wheelcms_categories',
             'wheelcms_valve',
+            'wheelcms_rss',
 
             'taggit',
             'two.ol',
