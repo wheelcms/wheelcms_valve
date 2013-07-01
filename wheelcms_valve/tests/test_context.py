@@ -17,10 +17,10 @@ class TestContext(BaseLocalRegistry):
     def test_context_on_blog(self, client):
         """ should find published entries, several levels deep """
         root = Node.root()
-        blog = ValveBlog(node=root, state="published").save()
-        e1 = ValveEntry(node=root.add("e1"), state="published").save()
-        e2 = ValveEntry(node=root.add("e2"), state="published").save()
-        e3 = ValveEntry(node=root.add("e3"), state="private").save()
+        _ = ValveBlog(node=root, state="published").save()
+        _ = ValveEntry(node=root.add("e1"), state="published").save()
+        _ = ValveEntry(node=root.add("e2"), state="published").save()
+        _ = ValveEntry(node=root.add("e3"), state="private").save()
 
         request = create_request("GET", "/", data={})
 
@@ -39,12 +39,12 @@ class TestContext(BaseLocalRegistry):
         n2 = root.add("b2")
         n3 = root.add("b3")
         ## blog state is actually ignored!
-        blog1 = ValveBlog(node=n1, state="published").save()
-        blog2 = ValveBlog(node=n2, state="published").save()
-        blog3 = ValveBlog(node=n3, state="published").save()
-        e1 = ValveEntry(node=n1.add("e1"), state="published").save()
-        e2 = ValveEntry(node=n2.add("e2"), state="published").save()
-        e3 = ValveEntry(node=n3.add("e3"), state="published").save()
+        _ = ValveBlog(node=n1, state="published").save()
+        _ = ValveBlog(node=n2, state="published").save()
+        _ = ValveBlog(node=n3, state="published").save()
+        _ = ValveEntry(node=n1.add("e1"), state="published").save()
+        _ = ValveEntry(node=n2.add("e2"), state="published").save()
+        _ = ValveEntry(node=n3.add("e3"), state="published").save()
 
         request = create_request("GET", "/", data={})
 
@@ -65,9 +65,9 @@ class TestContext(BaseLocalRegistry):
         n2 = root.add("b2")
         n3 = root.add("b3")
         
-        blog1 = ValveBlog(node=n1, state="published").save()
-        blog2 = ValveBlog(node=n2, state="private").save()
-        blog3 = ValveBlog(node=n3, state="published").save()
+        _ = ValveBlog(node=n1, state="published").save()
+        _ = ValveBlog(node=n2, state="private").save()
+        _ = ValveBlog(node=n3, state="published").save()
 
         request = create_request("GET", "/", data={})
 
