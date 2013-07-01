@@ -43,8 +43,8 @@ def blog_context(handler, request, node):
     if not handler.hasaccess():
         kw['contentbase__state'] = "published"
 
-    ctx['paginator'] = paginator = SectionedPaginator(Node.objects.filter(path__startswith=node.path + '/', contentbase__meta_type=ValveEntry.classname, **kw).order_by("-contentbase__created"), 4)
-    # ctx['paginator'] = paginator = SectionedPaginator(node.childrenq(contentbase__meta_type=ValveEntry.classname, **kw).order_by("-contentbase__created"), 4)
+    ## this will actually ignore the blog publication state! XXX
+    ctx['paginator'] = paginator = SectionedPaginator(Node.objects.offspring(node).filter(contentbase__meta_type=ValveEntry.classname, **kw).order_by("-contentbase__created"), 4)
     b, m, e = paginator.sections(p, windowsize=6)
     ctx['begin'] = b
     ctx['middle'] = m
@@ -81,6 +81,12 @@ class ValveBlogType(PageType):
                  node__path__startswith=self.path(),
                  state="published").order_by("-created")
 
+def global_blog_context(handler, request, node):
+    ctx = blog_context(handler, request, node)
+    ctx['all_blogs'] = ValveBlog.objects.filter(state="published")
+
+    return ctx
+
 type_registry.register(ValveBlogType)
 template_registry.register(ValveBlogType, "wheelcms_valve/valveblog_view.html",
                            "Blog view", default=True)
@@ -89,5 +95,6 @@ template_registry.register(ValveEntryType, "wheelcms_valve/valveentry_view.html"
                            "Blog entry view", default=True)
 
 template_registry.register(PageType, "wheelcms_valve/valveblog_view.html",
-                           "Blog view", default=False, context=blog_context)
+                           "Blog view", default=False,
+                           context=global_blog_context)
 

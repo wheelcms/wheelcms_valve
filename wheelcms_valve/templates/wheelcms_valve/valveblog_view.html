@@ -48,6 +48,10 @@
   {{block.super}}
 
   {% fragment "head" %}
-    {% include "wheelcms_rss/feedlinks.html" with feedcontext=instance.content %}
+    {% for blog in all_blogs %}
+      {% include "wheelcms_rss/feedlinks.html" with feedcontext=blog %}
+    {% empty %}
+      {% include "wheelcms_rss/feedlinks.html" with feedcontext=instance.content %}
+    {% endfor %}
   {% endfragment %}
 {% endblock %}
