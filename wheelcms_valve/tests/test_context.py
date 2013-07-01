@@ -12,6 +12,10 @@ from ..models import blog_context, global_blog_context
 
 
 class TestContext(BaseLocalRegistry):
+    """
+        Test the context methods that provide the template context
+        for the global / content blog view
+    """
     types = (ValveBlogType, ValveEntryType)
 
     def test_context_on_blog(self, client):
@@ -77,4 +81,3 @@ class TestContext(BaseLocalRegistry):
         res = ctx['all_blogs']
         assert res.count() == 2
         assert set(x.node.slug() for x in res) == set(("b1", "b3"))
-
