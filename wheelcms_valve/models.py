@@ -84,6 +84,7 @@ class ValveBlogType(PageType):
 def global_blog_context(handler, request, node):
     ctx = blog_context(handler, request, node)
     ctx['all_blogs'] = ValveBlog.objects.filter(state="published")
+    ctx['global_context'] = True
 
     return ctx
 

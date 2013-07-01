@@ -13,7 +13,11 @@
   {% with content=child.content %}
     <div class="row">
       <div class="span12">
-        <h3><a href="{{content.node.path}}">{{content.title}}</a></h3>
+        <h3><a href="{{content.node.path}}">{{content.title}}</a>
+        {% if not global_context and forloop.first %}
+        <div class="pull-right"><a href="{{content.node.absolute_url}}/+rss"><img src="/static/img/icons/rss_add.png" /></a></div>
+        {% endif %}
+        </h3>
         <span class="entry-info">{% if content.state == "private" %}<span class="badge badge-important">private</span>{%endif%}          Written by <i class="icon-user"></i>
 {{content.owner.get_full_name|default:content.owner}} on {{content.publication}} 
         {% with categories=content.categories.all %}
@@ -48,10 +52,12 @@
   {{block.super}}
 
   {% fragment "head" %}
+    {% if global_context %}
     {% for blog in all_blogs %}
       {% include "wheelcms_rss/feedlinks.html" with feedcontext=blog %}
-    {% empty %}
-      {% include "wheelcms_rss/feedlinks.html" with feedcontext=instance.content %}
     {% endfor %}
+    {% else %}
+      {% include "wheelcms_rss/feedlinks.html" with feedcontext=instance.content %}
+    {% endif %}
   {% endfragment %}
 {% endblock %}
