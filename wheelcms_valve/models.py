@@ -22,6 +22,8 @@ class ValveEntryType(PageType):
 
     discussable = True  ## entries can be discussed, of course
 
+    children = (FileType, ImageType)
+
     class form(PageForm):
         """ derive from Page's form but with correct model """
         class Meta(PageForm.Meta):
