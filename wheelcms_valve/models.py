@@ -36,6 +36,8 @@ class ValveBlog(PageBase):
 
 def blog_context(handler, request, node):
     """ provide context both in Page as in Blog context """
+    ## XXX This context provider will not work for non-valve (derived) blogs
+    ## due to the hardcoded ValveEntry.classname dependency
     ctx = {}
 
     ctx['body_class'] = "wheelcms_valve"
