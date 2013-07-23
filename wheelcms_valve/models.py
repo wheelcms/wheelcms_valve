@@ -42,7 +42,11 @@ def blog_context(handler, request, node):
 
     ctx['body_class'] = "wheelcms_valve"
 
-    p = max(1, int(request.GET.get('page', 1)))
+    try:
+        p = max(1, int(request.GET.get('page', 1)))
+    except (ValueError, TypeError):
+        p = 1
+
     kw = {}
     if not handler.hasaccess():
         kw['contentbase__state'] = "published"
