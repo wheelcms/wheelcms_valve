@@ -1,10 +1,11 @@
 {% extends "wheelcms_axle/content_base.html" %}
 {% load fragments %}
+{% load staticfiles %}
 
 
 {% block base_stylesheets %}
 {{block.super}}
-<link rel="stylesheet" href="/static/css/wheelcms_valve.css" media="screen, projection, print"/>
+<link rel="stylesheet" href="{% static "css/wheelcms_valve.css" %}" media="screen, projection, print"/>
 {% endblock %}
 
 {% block content_main %}
@@ -15,7 +16,7 @@
       <div class="span12">
         <h3><a href="{{content.node.get_absolute_url}}">{{content.title}}</a>
         {% if not global_context and forloop.first %}
-        <div class="pull-right"><a href="{{content.node.absolute_url}}/+rss"><img src="/static/img/icons/rss_add.png" /></a></div>
+        <div class="pull-right"><a href="{{content.node.absolute_url}}/+rss"><img src="{% static "img/icons/rss_add.png" %}" /></a></div>
         {% endif %}
         </h3>
         <span class="entry-info">{% if content.state == "private" %}<span class="badge badge-important">private</span>{%endif%}          Written by <i class="icon-user"></i>

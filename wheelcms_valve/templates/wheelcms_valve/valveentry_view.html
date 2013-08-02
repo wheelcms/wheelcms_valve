@@ -1,9 +1,10 @@
 {% extends "wheelcms_axle/content_base.html" %}
 {% load fragments %}
+{% load staticfiles %}
 
 {% block base_stylesheets %}
 {{block.super}}
-<link rel="stylesheet" href="/static/css/wheelcms_valve.css" media="screen, projection, print"/>
+<link rel="stylesheet" href="{% static "css/wheelcms_valve.css" %}" media="screen, projection, print"/>
 {% endblock %}
 
 {% block content_main %}
