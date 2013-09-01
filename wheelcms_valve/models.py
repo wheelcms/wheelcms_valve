@@ -2,8 +2,9 @@ from django.core.paginator import InvalidPage
 from two.bootstrap.paginator import SectionedPaginator
 
 from wheelcms_axle.content import type_registry
-from wheelcms_axle.node import Node
+from wheelcms_axle.node import Node, node_proxy_factory
 from wheelcms_axle.templates import template_registry
+from wheelcms_axle.utils import get_active_language
 
 from wheelcms_spokes.page import PageBase, PageType, PageForm
 from wheelcms_spokes.file import FileType
@@ -52,7 +53,12 @@ def blog_context(handler, request, node):
         kw['contentbase__state'] = "published"
 
     ## this will actually ignore the blog publication state! XXX
-    ctx['paginator'] = paginator = SectionedPaginator(Node.objects.offspring(node).filter(contentbase__meta_type=ValveEntry.classname, **kw).order_by("-contentbase__created"), 4)
+    language = get_active_language(request)
+    kw['contentbase__language'] = language
+
+    # import pdb; pdb.set_trace()
+    
+    ctx['paginator'] = paginator = SectionedPaginator(node_proxy_factory(Node, language).objects.offspring(node).filter(contentbase__meta_type=ValveEntry.classname, **kw).order_by("-contentbase__created"), 4)
     b, m, e = paginator.sections(p, windowsize=6)
     ctx['begin'] = b
     ctx['middle'] = m
