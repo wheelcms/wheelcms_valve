@@ -8,7 +8,7 @@ Pillow
 git+git://github.com/iivvoo/two.ol
 git+git://github.com/iivvoo/two.bootstrap@bootstrap2.2
 git+git://github.com/Stracksapp/stracks_api
-git+git://github.com/wheelcms/wheelcms_axle.git
+git+git://github.com/wheelcms/wheelcms_axle.git@translation-frontend
 git+git://github.com/wheelcms/wheelcms_spokes.git
 git+git://github.com/wheelcms/wheelcms_categories.git
 git+git://github.com/wheelcms/wheelcms_rss.git
