@@ -56,8 +56,6 @@ def blog_context(handler, request, node):
     language = get_active_language(request)
     kw['contentbase__language'] = language
 
-    # import pdb; pdb.set_trace()
-    
     ctx['paginator'] = paginator = SectionedPaginator(node_proxy_factory(Node, language).objects.offspring(node).filter(contentbase__meta_type=ValveEntry.classname, **kw).order_by("-contentbase__created"), 4)
     b, m, e = paginator.sections(p, windowsize=6)
     ctx['begin'] = b
