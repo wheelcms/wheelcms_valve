@@ -89,8 +89,9 @@ class ValveBlogType(PageType):
         return ctx
 
     def feed(self):
+        ## XXX Use content object manager once available
         return ValveEntry.objects.filter(
-                 node__path__startswith=self.path(),
+                 node__tree_path__startswith=self.instance.node.tree_path,
                  state="published").order_by("-created")
 
 def global_blog_context(handler, request, node):

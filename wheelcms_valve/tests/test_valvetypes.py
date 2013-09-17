@@ -1,4 +1,6 @@
 from wheelcms_axle.content import TypeRegistry, type_registry
+from wheelcms_axle.node import Node
+
 from wheelcms_axle.tests.test_spoke import BaseSpokeTest, BaseSpokeTemplateTest
 from wheelcms_axle.tests.test_impexp import BaseSpokeImportExportTest
 from wheelcms_axle.tests.test_search import BaseTestSearch
@@ -21,6 +23,21 @@ class TestValveBlogSpoke(BaseSpokeTest):
     """ Test the ValveBlog type """
     type = ValveBlogType
 
+    def test_feed(self, client):
+        """ the feed() method is used by wheelcms_rss """
+        root = Node.root()
+        blog = self.type.model(node=root, title="blog", state="published").save()
+        spoke = blog.spoke()
+        e1 = ValveEntryType.model(title="e1", state="published",
+                                  node=root.add("e1")).save()
+        e2 = ValveEntryType.model(title="e2", state="published",
+                                  node=root.add("e2")).save()
+        e3 = ValveEntryType.model(title="e3", state="private",
+                                  node=root.add("e3")).save()
+
+        assert e1 in spoke.feed()
+        assert e2 in spoke.feed()
+        assert e3 not in spoke.feed()
 
 class TestValveBlogSpokeImpExp(BaseSpokeImportExportTest):
     type = ValveBlog
