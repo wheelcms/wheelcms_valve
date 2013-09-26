@@ -26,7 +26,7 @@ if __name__ == '__main__':
             'wheelcms_axle.tests',
 
         ),
-        ROOT_URLCONF="wheelcms_axle.test_urls",
+        ROOT_URLCONF="wheelcms_axle.quicktest_urls",
         ANONYMOUS_USER_ID=-1,
         HAYSTACK_SITECONF = 'wheelcms_axle.search_sites',
         HAYSTACK_SEARCH_ENGINE = 'simple',
