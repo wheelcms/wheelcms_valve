@@ -5,6 +5,10 @@
 {% block base_stylesheets %}
 {{block.super}}
 <link rel="stylesheet" href="{% static "css/wheelcms_valve.css" %}" media="screen, projection, print"/>
+
+{% if user.my_profile.google %}
+<link rel='author' href='{{user.my_profile.google}}' />
+{% endif %}
 {% endblock %}
 
 {% block content_main %}
