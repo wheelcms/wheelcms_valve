@@ -1,8 +1,8 @@
 {# link categories and tags to a filter on the main index view #}
 <div class="row">
-  <div class="span12">
+  <div class="col-lg-12">
     <h3><a href="{{content.node.get_absolute_url}}">{{content.title}}</a></h3>
-    <span class="entry-info">{% if content.state == "private" %}<span class="badge badge-important">private</span>{%endif%}          Written by <i class="icon-user"></i>
+    <span class="entry-info">{% if content.state == "private" %}<span class="badge badge-important">private</span>{%endif%}          Written by <i class="glyphicon glyphicon-user"></i>
 {{content.owner.get_full_name|default:content.owner}} on {{content.publication}} 
         {% with categories=content.categories.all %}
           {% if categories %}
@@ -16,14 +16,14 @@
   </div>
 </div>
 <div class="row">
-  <div class="span12">
+  <div class="col-lg-12">
     <div class="entry-content">
       {{content.body|safe}}
     </div>
   </div>
 </div>
 <div class="row">
-  <div class="span12">
+  <div class="col-lg-12">
     <span class="entry-details-footer">{% if content.state == "private" %}<span class="badge badge-important">private</span>{%endif%} 
     Last updated {{content.modified}} 
     {% with categories=content.categories.all %}
@@ -36,7 +36,7 @@
     {% endwith %}
     {% with tags=content.tags.all %}
       {% if tags %}
-        | <i class="icon-tag"></i>
+        | <i class="glyphicon glyphicon-tag"></i>
         {% for tag in tags %}
           <span class="label label-default">{{tag}}</span>
         {% endfor %}

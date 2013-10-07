@@ -13,13 +13,13 @@
 {% for child in page.object_list %}
   {% with content=child.content %}
     <div class="row">
-      <div class="span12">
+      <div class="col-lg-12">
         <h3><a href="{{content.node.get_absolute_url}}">{{content.title}}</a>
         {% if not global_context and forloop.first %}
         <div class="pull-right"><a href="{{content.node.absolute_url}}/+rss"><img src="{% static "img/icons/rss_add.png" %}" /></a></div>
         {% endif %}
         </h3>
-        <span class="entry-info">{% if content.state == "private" %}<span class="badge badge-important">private</span>{%endif%}          Written by <i class="icon-user"></i>
+        <span class="entry-info">{% if content.state == "private" %}<span class="badge badge-important">private</span>{%endif%}          Written by <i class="glyphicon glyphicon-user"></i>
 {{content.owner.get_full_name|default:content.owner}} on {{content.publication}} 
         {% with categories=content.categories.all %}
           {% if categories %}
@@ -33,7 +33,7 @@
       </div>
     </div>
     <div class="row">
-      <div class="span12">
+      <div class="col-lg-12">
         <div class="entry-content">
           {{content.body|safe|truncatewords_html:40}}
         </div>
