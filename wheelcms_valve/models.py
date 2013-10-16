@@ -10,7 +10,7 @@ from wheelcms_spokes.page import PageBase, PageType, PageForm
 from wheelcms_spokes.file import FileType
 from wheelcms_spokes.image import ImageType
 
-from wheelcms_categories.models import CategoryType
+from wheelcms_categories.models import Category, CategoryType
 
 
 class ValveEntry(PageBase):
@@ -32,6 +32,18 @@ class ValveEntryType(PageType):
 
     icon = "blogs.png"
 
+    def context(self, handler, request, node):
+        ctx = super(ValveEntryType, self).context(handler, request, node)
+
+        ## Category.objects.parent(my_parent) ?
+        language = handler.active_language()
+        parent = handler.instance.parent()
+        ctx['blog'] = parent.content(language=language)
+        ctx['categories'] = Category.objects.filter(
+                            node__tree_path__startswith=parent.tree_path + '/',
+                            language=language).order_by("node__position")
+        return ctx
+
 class ValveBlog(PageBase):
     pass
 
@@ -52,11 +64,26 @@ def blog_context(handler, request, node):
     if not handler.hasaccess():
         kw['contentbase__state'] = "published"
 
-    ## this will actually ignore the blog publication state! XXX
     language = get_active_language(request)
     kw['contentbase__language'] = language
 
-    ctx['paginator'] = paginator = SectionedPaginator(node_proxy_factory(Node, language).objects.offspring(node).filter(contentbase__meta_type=ValveEntry.classname, **kw).order_by("-contentbase__created"), 4)
+    category_slug = request.GET.get('category', '')
+    if category_slug:
+        ## XXX Untested
+        category = handler.instance.child(category_slug, language=language)
+        kw['contentbase__categories'] = category
+
+    try:
+        ownerid = int(request.GET.get('ownerid', ''))
+        kw['contentbase__owner__id'] = ownerid
+    except ValueError:
+        pass
+    ## this will actually ignore the blog publication state! XXX
+    ctx['paginator'] = paginator = SectionedPaginator(
+         node_proxy_factory(Node, language)
+         .objects.offspring(node)
+         .filter(contentbase__meta_type=ValveEntry.classname, **kw)
+         .order_by("-contentbase__created"), 4)
     b, m, e = paginator.sections(p, windowsize=6)
     ctx['begin'] = b
     ctx['middle'] = m
