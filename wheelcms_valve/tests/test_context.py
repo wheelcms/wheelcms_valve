@@ -2,7 +2,6 @@ from twotest.util import create_request
 
 from wheelcms_axle.node import Node
 
-from wheelcms_axle.tests.test_spoke import BaseLocalRegistry
 from wheelcms_axle.tests.test_handler import MainHandlerTestable
 
 from ..models import ValveBlog, ValveBlogType
@@ -10,8 +9,10 @@ from ..models import ValveEntry, ValveEntryType
 
 from ..models import blog_context, global_blog_context
 
+import pytest
 
-class TestContext(BaseLocalRegistry):
+@pytest.mark.usefixtures("localregistry")
+class TestContext(object):
     """
         Test the context methods that provide the template context
         for the global / content blog view
