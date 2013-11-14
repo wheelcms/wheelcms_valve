@@ -19,9 +19,8 @@ class TestContext(object):
     """
     types = (ValveBlogType, ValveEntryType)
 
-    def test_context_on_blog(self, client):
+    def test_context_on_blog(self, client, root):
         """ should find published entries, several levels deep """
-        root = Node.root()
         _ = ValveBlog(node=root, state="published").save()
         _ = ValveEntry(node=root.add("e1"), state="published").save()
         _ = ValveEntry(node=root.add("e2"), state="published").save()
@@ -37,9 +36,8 @@ class TestContext(object):
         assert len(res) == 2
         assert set(x.slug() for x in res) == set(("e1", "e2"))
 
-    def test_context_global(self, client):
+    def test_context_global(self, client, root):
         """ collect global entries, i.e. from multiple blogs """
-        root = Node.root()
         n1 = root.add("b1")
         n2 = root.add("b2")
         n3 = root.add("b3")
@@ -61,11 +59,10 @@ class TestContext(object):
         assert len(res) == 3
         assert set(x.slug() for x in res) == set(("e1", "e2", "e3"))
 
-    def test_allblogs(self, client):
+    def test_allblogs(self, client, root):
         """ in a global context (i.e. not directly on a blog instance) we
             want a list of all underlying (published) blogs for proper rss
             feed linking """
-        root = Node.root()
         n1 = root.add("b1")
         n2 = root.add("b2")
         n3 = root.add("b3")

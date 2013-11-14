@@ -23,9 +23,8 @@ class TestValveBlogSpoke(BaseSpokeTest):
     """ Test the ValveBlog type """
     type = ValveBlogType
 
-    def test_feed(self, client):
+    def test_feed(self, client, root):
         """ the feed() method is used by wheelcms_rss """
-        root = Node.root()
         blog = self.type.model(node=root, title="blog", state="published").save()
         spoke = blog.spoke()
         e1 = ValveEntryType.model(title="e1", state="published",
