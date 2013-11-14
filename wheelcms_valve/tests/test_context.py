@@ -11,7 +11,7 @@ from ..models import blog_context, global_blog_context
 
 import pytest
 
-@pytest.mark.usefixtures("localregistry")
+@pytest.mark.usefixtures("localtyperegistry")
 class TestContext(object):
     """
         Test the context methods that provide the template context
