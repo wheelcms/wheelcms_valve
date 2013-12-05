@@ -13,6 +13,6 @@ install:
     - python setup.py install -q
 # command to run tests, e.g. python setup.py test
 script:
-    - coveralls run --source=wheelcms_axle quicktest.py
+    - coverage run --source=wheelcms_axle quicktest.py
 after_success:
   coveralls
