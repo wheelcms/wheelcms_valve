@@ -13,4 +13,6 @@ install:
     - python setup.py install -q
 # command to run tests, e.g. python setup.py test
 script:
-    - python quicktest.py
+    - coveralls run quicktest.py
+after_success:
+  coveralls
