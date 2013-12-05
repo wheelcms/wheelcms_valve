@@ -6,8 +6,7 @@ version = '0.9'
 setup(name='wheelcms_valve',
       version=version,
       description="A blogging application for WheelCMS",
-      long_description=open("README.txt").read() + "\n" +
-                       open(os.path.join("docs", "HISTORY.txt")).read(),
+      long_description=open("README.md").read(),
       classifiers=[
         "Programming Language :: Python",
         ],
