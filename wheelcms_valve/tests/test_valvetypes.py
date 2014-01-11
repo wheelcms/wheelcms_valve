@@ -5,6 +5,8 @@ from wheelcms_axle.tests.test_spoke import BaseSpokeTest, BaseSpokeTemplateTest
 from wheelcms_axle.tests.test_impexp import BaseSpokeImportExportTest
 from wheelcms_axle.tests.test_search import BaseTestSearch
 
+from wheelcms_axle.tests.utils import MockedQueryDict
+
 
 from ..models import ValveBlog, ValveBlogType
 from ..models import ValveEntry, ValveEntryType
@@ -16,7 +18,7 @@ class TestValveBlogSpokeTemplate(BaseSpokeTemplateTest):
 
     def valid_data(self):
         """ return additional data for ValveBlog validation """
-        return dict(body="Hello World")
+        return MockedQueryDict(body="Hello World")
 
 
 class TestValveBlogSpoke(BaseSpokeTest):
@@ -53,7 +55,7 @@ class TestValveEntrySpokeTemplate(BaseSpokeTemplateTest):
 
     def valid_data(self):
         """ return additional data for ValveEntry validation """
-        return dict(body="Hello World")
+        return MockedQueryDict(body="Hello World")
 
 
 class TestValveEntrySpoke(BaseSpokeTest):
