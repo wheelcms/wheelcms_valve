@@ -1,5 +1,5 @@
 {% extends "wheelcms_axle/content_base.html" %}
-{% load fragments %}
+{% load granules %}
 {% load staticfiles %}
 
 {% block base_stylesheets %}
@@ -17,10 +17,10 @@
 
 {% endblock %}
 
-{% block fragments %}
+{% block granules %}
   {{block.super}}
 
-  {% fragment "head" %}
+  {% granule "head" %}
     {% include "wheelcms_rss/feedlinks.html" with feedcontext=instance.parent.content %}
-  {% endfragment %}
+  {% endgranule %}
 {% endblock %}

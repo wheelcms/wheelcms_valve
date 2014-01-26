@@ -1,5 +1,5 @@
 {% extends "wheelcms_axle/content_base.html" %}
-{% load fragments %}
+{% load granules %}
 {% load staticfiles %}
 
 
@@ -49,10 +49,10 @@
 
 {% endblock %}
 
-{% block fragments %}
+{% block granules %}
   {{block.super}}
 
-  {% fragment "head" %}
+  {% granule "head" %}
     {% if global_context %}
     {% for blog in all_blogs %}
       {% include "wheelcms_rss/feedlinks.html" with feedcontext=blog %}
@@ -60,5 +60,5 @@
     {% else %}
       {% include "wheelcms_rss/feedlinks.html" with feedcontext=instance.content %}
     {% endif %}
-  {% endfragment %}
+  {% endgranule %}
 {% endblock %}
