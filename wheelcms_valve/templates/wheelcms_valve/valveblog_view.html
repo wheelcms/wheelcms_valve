@@ -14,7 +14,7 @@
   {% with content=child.content %}
     <div class="row">
       <div class="col-lg-12">
-        <h3><a href="{{content.node.get_absolute_url}}">{{content.title}}</a>
+        <h3><a href="{{content.get_absolute_url}}">{{content.title}}</a>
         {% if not global_context and forloop.first %}
         <div class="pull-right"><a href="{{content.node.absolute_url}}/+rss"><img src="{% static "img/icons/rss_add.png" %}" /></a></div>
         {% endif %}
