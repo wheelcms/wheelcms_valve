@@ -16,9 +16,9 @@ class TestValveBlogSpokeTemplate(BaseSpokeTemplateTest):
     """ Test the ValveBlog type """
     type = ValveBlogType
 
-    def valid_data(self):
+    def valid_data(self, **kw):
         """ return additional data for ValveBlog validation """
-        return MockedQueryDict(body="Hello World")
+        return MockedQueryDict(body="Hello World", **kw)
 
 
 class TestValveBlogSpoke(BaseSpokeTest):
@@ -53,9 +53,9 @@ class TestValveEntrySpokeTemplate(BaseSpokeTemplateTest):
     """ Test the ValveEntry type """
     type = ValveEntryType
 
-    def valid_data(self):
+    def valid_data(self, **kw):
         """ return additional data for ValveEntry validation """
-        return MockedQueryDict(body="Hello World")
+        return MockedQueryDict(body="Hello World", **kw)
 
 
 class TestValveEntrySpoke(BaseSpokeTest):
