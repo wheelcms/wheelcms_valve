@@ -64,7 +64,7 @@ def blog_context(handler, request, node):
     if not handler.hasaccess():
         kw['contentbase__state'] = "published"
 
-    language = get_active_language(request)
+    language = get_active_language()
     kw['contentbase__language'] = language
 
     category_slug = request.GET.get('category', '')
