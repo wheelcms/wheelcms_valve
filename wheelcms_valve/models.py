@@ -119,7 +119,8 @@ class ValveBlogType(PageType):
         ## XXX Use content object manager once available
         return ValveEntry.objects.filter(
                  node__tree_path__startswith=self.instance.node.tree_path,
-                 state="published").order_by("-created")
+                 state="published",
+                 language=self.instance.language).order_by("-created")
 
 def global_blog_context(handler, request, node):
     ctx = blog_context(handler, request, node)
