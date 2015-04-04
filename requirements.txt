@@ -1,8 +1,6 @@
 south
-django-haystack==1.2.7
 django-taggit
 django-tinymce
-django-userena
 Pillow
 stracks_api==0.2dev
 twotest
