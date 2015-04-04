@@ -20,7 +20,6 @@ if __name__ == '__main__':
             'wheelcms_rss',
 
             'taggit',
-            'two.ol',
             'two.bootstrap',
             'twotest',
             'wheelcms_axle.tests',

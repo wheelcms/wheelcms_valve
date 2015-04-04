@@ -6,7 +6,6 @@ django-userena
 Pillow
 stracks_api==0.2dev
 twotest
-git+git://github.com/iivvoo/two.ol
 git+git://github.com/iivvoo/two.bootstrap
 git+git://github.com/wheelcms/wheelcms_axle.git
 git+git://github.com/wheelcms/wheelcms_spokes.git
