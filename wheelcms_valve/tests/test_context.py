@@ -28,7 +28,9 @@ class TestContext(object):
 
         request = create_request("GET", "/", data={})
 
-        handler = MainHandlerTestable(request=request, instance=root)
+        handler = MainHandlerTestable()
+        handler.init_from_request(request)
+        handler.instance = root
         ctx = blog_context(handler, request, root)
 
         assert 'paginator' in ctx
@@ -51,7 +53,10 @@ class TestContext(object):
 
         request = create_request("GET", "/", data={})
 
-        handler = MainHandlerTestable(request=request, instance=root)
+        handler = MainHandlerTestable()
+        handler.init_from_request(request)
+        handler.instance = root
+
         ctx = blog_context(handler, request, root)
 
         assert 'paginator' in ctx
@@ -73,7 +78,10 @@ class TestContext(object):
 
         request = create_request("GET", "/", data={})
 
-        handler = MainHandlerTestable(request=request, instance=root)
+        handler = MainHandlerTestable()
+        handler.init_from_request(request)
+        handler.instance = root
+
         ctx = global_blog_context(handler, request, root)
 
         res = ctx['all_blogs']

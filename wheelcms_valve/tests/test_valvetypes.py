@@ -1,3 +1,5 @@
+import pytest
+
 from wheelcms_axle.content import TypeRegistry, type_registry
 from wheelcms_axle.node import Node
 
@@ -12,6 +14,7 @@ from ..models import ValveBlog, ValveBlogType
 from ..models import ValveEntry, ValveEntryType
 
 
+@pytest.mark.usefixtures("localtyperegistry")
 class TestValveBlogSpokeTemplate(BaseSpokeTemplateTest):
     """ Test the ValveBlog type """
     type = ValveBlogType
@@ -21,9 +24,11 @@ class TestValveBlogSpokeTemplate(BaseSpokeTemplateTest):
         return MockedQueryDict(body="Hello World", **kw)
 
 
+@pytest.mark.usefixtures("localtyperegistry")
 class TestValveBlogSpoke(BaseSpokeTest):
     """ Test the ValveBlog type """
     type = ValveBlogType
+    types = (ValveEntryType, )
 
     def test_feed(self, client, root):
         """ the feed() method is used by wheelcms_rss """
@@ -40,15 +45,18 @@ class TestValveBlogSpoke(BaseSpokeTest):
         assert e2 in spoke.feed()
         assert e3 not in spoke.feed()
 
+@pytest.mark.usefixtures("localtyperegistry")
 class TestValveBlogSpokeImpExp(BaseSpokeImportExportTest):
-    type = ValveBlog
+    type = ValveBlogType
     spoke = ValveBlogType
 
 
+@pytest.mark.usefixtures("localtyperegistry")
 class TestValveBlogSpokeSearch(BaseTestSearch):
     type = ValveBlogType
 
 
+@pytest.mark.usefixtures("localtyperegistry")
 class TestValveEntrySpokeTemplate(BaseSpokeTemplateTest):
     """ Test the ValveEntry type """
     type = ValveEntryType
@@ -58,15 +66,17 @@ class TestValveEntrySpokeTemplate(BaseSpokeTemplateTest):
         return MockedQueryDict(body="Hello World", **kw)
 
 
+@pytest.mark.usefixtures("localtyperegistry")
 class TestValveEntrySpoke(BaseSpokeTest):
     """ Test the ValveEntry type """
     type = ValveEntryType
 
 
+@pytest.mark.usefixtures("localtyperegistry")
 class TestValveEntrySpokeImpExp(BaseSpokeImportExportTest):
-    type = ValveEntry
-    spoke = ValveEntryType
+    type = ValveEntryType
 
 
+@pytest.mark.usefixtures("localtyperegistry")
 class TestValveEntrySpokeSearch(BaseTestSearch):
     type = ValveEntryType
